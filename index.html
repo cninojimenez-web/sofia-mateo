@@ -1,564 +1,384 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Sofía & Mateo</title>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- ══════════════════════════════════════════════
+     CONFIGURACIÓN DEL CLIENTE
+     Editar SOLO este bloque para personalizar
+     ══════════════════════════════════════════════ -->
+<script>
+const CONFIG = {
+
+  /* ── Nombres ── */
+  nombre1: "Sofía",       // ella / persona 1
+  nombre2: "Mateo",       // él / persona 2
+  tagline: "Desde el 14 de febrero de 2025, el universo nos puso en el mismo horizonte.",
+
+  /* ── Fechas de nacimiento ── */
+  nacimiento1: {
+    fecha: "3 de noviembre de 1997",
+    ciudad: "Medellín",
+    iso: "1997-11-03",    // para cálculos
+  },
+  nacimiento2: {
+    fecha: "28 de enero de 1995",
+    ciudad: "Bogotá",
+    iso: "1995-01-28",
+  },
+
+  /* ── Fecha de inicio de la relación ── */
+  fechaInicio: "2025-02-14T00:00:00",   // ISO — para el contador
+  fechaInicioTexto: "14 de febrero de 2025",
+  lugarInicio: "La Candelaria, Bogotá",
+
+  /* ── Fecha de apertura del sobre sellado ── */
+  fechaSobre: "2026-02-14T00:00:00",
+  fechaSobreTexto: "14 de febrero de 2026",
+
+  /* ── Carta astral — Persona 1 ── */
+  astro1: {
+    elemento: "Agua",
+    modalidad: "Fijo",
+    elementoColor: "var(--rose)",
+    sol:   { signo: "Escorpión", simbolo: "♏", grado: "10° 47'", texto: "Profunda, intuitiva y magnética. Cuando ama, lo hace sin reservas y con una intensidad que pocas personas comprenden del todo. Su corazón es un océano." },
+    luna:  { signo: "Piscis",    simbolo: "♓", grado: "22° 14'", texto: "Sus emociones no conocen límites. Siente el mundo de manera extraordinariamente sensible, casi como si llevara el alma de los demás dentro de la propia." },
+    asc:   { signo: "Leo",       simbolo: "♌", grado: "17° 30' · 6:15 AM", texto: "Proyecta calidez y presencia antes de decir una sola palabra. La gente la nota cuando entra a una habitación, aunque ella rara vez lo busque." },
+    mercurio: { signo: "Escorpión", simbolo: "♏", grado: "28° 02'", texto: "Piensa en capas. Cada palabra que dice tiene una segunda y una tercera lectura. Detecta mentiras con una facilidad que desconcierta." },
+    venus: { signo: "Sagitario",  simbolo: "♐", grado: "5° 19'",  texto: "Ama con libertad. No encadena ni quiere ser encadenada. Para ella, el amor verdadero es el que te hace crecer hacia afuera, no solo hacia adentro." },
+    marte: { signo: "Capricornio",simbolo: "♑", grado: "14° 55'", texto: "Paciente y estratégica. No actúa por impulso; construye. Cuando decide perseguir algo, nada la detiene. Nada." },
+    simboloSol: "♏",
+    bgColor: "rgba(232,164,184,.1)",
+    borderColor: "rgba(232,164,184,.25)",
+  },
+
+  /* ── Carta astral — Persona 2 ── */
+  astro2: {
+    elemento: "Aire",
+    modalidad: "Fijo",
+    elementoColor: "var(--sky)",
+    sol:   { signo: "Acuario",    simbolo: "♒", grado: "8° 12'",  texto: "Piensa diferente, casi siempre antes que los demás. No sigue caminos, los abre. Ama con una ternura que no siempre sabe expresar con palabras." },
+    luna:  { signo: "Géminis",    simbolo: "♊", grado: "3° 58'",  texto: "Sus emociones cambian de velocidad, pero no de dirección. Necesita hablar para procesar lo que siente, aunque a veces eso llegue tarde." },
+    asc:   { signo: "Libra",      simbolo: "♎", grado: "24° 10' · 7:40 AM", texto: "La armonía que proyecta es real, aunque le cueste mantenerla. Tiene un talento natural para hacer que las personas a su lado se sientan vistas." },
+    mercurio: { signo: "Acuario", simbolo: "♒", grado: "20° 31'", texto: "Su mente trabaja en saltos, no en líneas rectas. Conecta ideas que nadie más conecta, y cuando explica algo, lo hace de un modo que cambia la manera en que lo ves." },
+    venus: { signo: "Piscis",     simbolo: "♓", grado: "11° 44'", texto: "Ama con toda la imaginación que tiene. Idealiza, pero de una manera que hace que quien ama se sienta algo más que real. Una rareza." },
+    marte: { signo: "Acuario",    simbolo: "♒", grado: "2° 07'",  texto: "Su energía es disruptiva y tranquila al mismo tiempo. No pelea, razona. Y casi siempre tiene razón, lo que puede ser tanto una virtud como un problema." },
+    simboloSol: "♒",
+    bgColor: "rgba(138,180,212,.1)",
+    borderColor: "rgba(138,180,212,.25)",
+  },
+
+  /* ── Compatibilidad ── */
+  compat: {
+    titulo: "Escorpión & Acuario",
+    subtitulo: "Agua & Aire · Una combinación que el cosmos no crea dos veces",
+    simbolos: "♏ ✦ ♒",
+    descripcion1: "Escorpión y Acuario no son la combinación que los libros de astrología recomiendan. Y precisamente por eso funcionan de una manera que es difícil de explicar desde afuera. Uno siente demasiado; el otro piensa demasiado. Juntos, se equilibran.",
+    descripcion2: "El magnetismo de Escorpión desafía la racionalidad de Acuario. La libertad de Acuario enseña a Escorpión que confiar no es rendirse. Es una de esas parejas que el universo no crea dos veces.",
+    aspectoClave: "Venus de Mateo en Piscis trine Luna de Sofía en Piscis.<br>Una rareza. Hablan el mismo idioma sin saberlo.",
+    barras: [
+      { label: "Conexión emocional", pct: 82, colores: ["var(--rose)","var(--lavender)"] },
+      { label: "Comunicación",       pct: 74, colores: ["var(--sky)","var(--sage)"] },
+      { label: "Atracción & química",pct: 91, colores: ["var(--gold)","var(--rose)"] },
+      { label: "Valores compartidos",pct: 68, colores: ["var(--sage)","var(--sky)"] },
+      { label: "Crecimiento mutuo",  pct: 88, colores: ["var(--lavender)","var(--gold)"] },
+    ],
+  },
+
+  /* ── Datos del universo (día del encuentro) ── */
+  cosmos: {
+    fecha: "14 de febrero de 2025",
+    hora: "4:00 p.m.",
+    ciudad: "Bogotá, Colombia",
+    celdas: [
+      { icono:"☀️", lbl:"Constelación solar", val:"Acuario", sub:"Sol en 25° 32′ Acuario", back:"El Sol transitaba Acuario: el signo del visionario. El día que se conocieron, el cosmos pedía romper esquemas. Lo hicieron." },
+      { icono:"🌕", lbl:"Fase lunar", val:"Luna llena", sub:"Iluminación 98.4% · Virgo", back:"Luna llena en Virgo: el momento de máxima claridad emocional. Nada estaba a medias. Lo que sintieron ese día fue completo desde el principio." },
+      { icono:"⭐", lbl:"Estrella más brillante", val:"Sirio", sub:"8.6 años luz · Canis Major", back:"Sirio, la estrella más brillante del cielo nocturno, era visible esa noche desde Bogotá. Los egipcios la asociaban con el amor eterno y el regreso de lo que se perdió." },
+      { icono:"🌍", lbl:"Distancia Tierra-Sol", val:"147.8 M km", sub:"Cerca del perihelio", back:"La Tierra estaba en su punto más cercano al Sol del año. Todo el sistema solar conspiraba para acercar cosas. Incluidos ellos dos." },
+      { icono:"🌡️", lbl:"Clima en Bogotá", val:"14 °C", sub:"Llovizna · humedad 82%", back:"Llovía. Esa lluvia bogotana que no moja rápido sino despacio, que obliga a quedarse. Que los obligó a seguir hablando." },
+      { icono:"♀♒", lbl:"Venus & Júpiter", val:"Conjunción", sub:"Piscis · 17° separación", back:"Venus (amor) y Júpiter (expansión) estaban en conjunción ese día. En astrología, es uno de los mejores augurios posibles para el inicio de una relación." },
+    ],
+    // Posiciones planetarias en la rueda zodiacal (grado eclíptico 0-359)
+    planetas: [
+      { nombre:"☀", grado:325, color:"#f9d56e" },
+      { nombre:"☽", grado:171, color:"#c8d8e8" },
+      { nombre:"☿", grado:328, color:"#b8c8d8" },
+      { nombre:"♀", grado:345, color:"#e8a4b8" },
+      { nombre:"♂", grado:75,  color:"#e87050" },
+      { nombre:"♃", grado:55,  color:"#c8a870" },
+    ],
+    // Constelación manual (puntos en canvas 340x340)
+    constPuntos: [[170,90],[155,110],[145,135],[155,160],[170,178],[185,200],[195,220],[205,240],[195,255],[178,262],[162,258]],
+    constLabel: "ACUARIO  ✦  SOL EN 25° 32'",
+  },
+
+  /* ── Historia / timeline ── */
+  hitos: [
+    { fecha:"Noviembre 2024",          color:"var(--sky)",   titulo:"El primer mensaje",      texto:"Un texto de buenas noches que llegó a las 11:47 p.m. y que ninguno olvidó. Nada comenzó esa noche, pero algo se sembró." },
+    { fecha:"14 de febrero de 2025",   color:"var(--rose)",  titulo:"El día que todo empezó", texto:"Café en La Candelaria, lluvia a las 4 p.m., y una conversación que duró hasta que cerraron el lugar. Ese día supimos." },
+    { fecha:"1 de mayo de 2025",       color:"var(--gold)",  titulo:"La primera escapada",    texto:"Villa de Leyva. Una tarde completa sin planes. Aprendimos que somos buenos en el silencio cómodo." },
+    { fecha:"Agosto 2025",             color:"var(--sage)",  titulo:"El primer 'quedémonos'", texto:"Decidimos que algunas noches no necesitan excusa. Esta fue la primera de muchas." },
+    { fecha:"Hoy",                     color:"var(--rose)",  titulo:"Seguimos aquí",          texto:"Y cada día que pasa tiene su propio peso. Este es uno de ellos." },
+  ],
+
+  /* ── Carta de amor ── */
+  carta: {
+    parrafos: [
+      "No sé exactamente cuándo pasó. No hubo un instante preciso, ni una escena de película. Fue algo más lento, más parecido a la manera en que amanece: sin que nadie lo decida, la oscuridad simplemente deja de serlo.",
+      "Contigo aprendí que hay personas que no irrumpen en tu vida, sino que la expanden. Y desde que llegaste, todo ocupa más espacio, en el buen sentido.",
+      "<span class='highlight'>Gracias por quedarte.</span>",
+    ],
+    firma: "Con todo, Mateo.",
+  },
+
+  /* ── Fotos generadas (paletas de colores) ── */
+  fotos: [
+    { tall:true,  cap:"La Candelaria · Feb 2025", pal:["#2d1b3d","#8b5a7a","#e8c4a0"] },
+    { tall:false, cap:"Villa de Leyva · May 2025", pal:["#1a2f4a","#4a7fa5","#c8dce8"] },
+    { tall:false, cap:"Nuestro lugar",              pal:["#1f1a0e","#6b4c1a","#c9935a"] },
+    { tall:false, cap:"Un domingo",                 pal:["#0d1f2d","#2d5a7a","#7ab8d4"] },
+    { tall:false, cap:"Sin filtro",                 pal:["#2a1a2e","#7a4a8a","#c8a0d8"] },
+  ],
+};
+</script>
+
+<title id="pageTitle">Sofía & Mateo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap">
 
 <style>
 :root {
-  --paper:  #0d0b18;
-  --dim:    #1a1629;
-  --mist:   rgba(255,255,255,.055);
-  --border: rgba(255,255,255,.07);
-  --rose:   #e8a4b8;
-  --gold:   #c9a96e;
-  --sky:    #8ab4d4;
-  --sage:   #8abda8;
-  --lavender:#b4a8d4;
-  --text:   #e8e4f0;
-  --muted:  rgba(232,228,240,.42);
-  --serif:  'Cormorant Garamond', Georgia, serif;
-  --sans:   'DM Sans', system-ui, sans-serif;
-  color-scheme: dark;
+  --paper:#0d0b18; --dim:#1a1629;
+  --mist:rgba(255,255,255,.055); --border:rgba(255,255,255,.07);
+  --rose:#e8a4b8; --gold:#c9a96e; --sky:#8ab4d4; --sage:#8abda8; --lavender:#b4a8d4;
+  --text:#e8e4f0; --muted:rgba(232,228,240,.42);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  color-scheme:dark;
 }
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --paper: #f2eef8; --dim: #e5dff4;
-    --mist: rgba(0,0,0,.045); --border: rgba(0,0,0,.08);
-    --text: #18132a; --muted: rgba(24,19,42,.42);
-    color-scheme: light;
+@media(prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --paper:#f2eef8;--dim:#e5dff4;--mist:rgba(0,0,0,.045);--border:rgba(0,0,0,.08);
+    --text:#18132a;--muted:rgba(24,19,42,.42);color-scheme:light;
   }
 }
-:root[data-theme="light"] {
-  --paper: #f2eef8; --dim: #e5dff4;
-  --mist: rgba(0,0,0,.045); --border: rgba(0,0,0,.08);
-  --text: #18132a; --muted: rgba(24,19,42,.42);
-  color-scheme: light;
+:root[data-theme="light"]{
+  --paper:#f2eef8;--dim:#e5dff4;--mist:rgba(0,0,0,.045);--border:rgba(0,0,0,.08);
+  --text:#18132a;--muted:rgba(24,19,42,.42);color-scheme:light;
 }
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  background: var(--paper); color: var(--text);
-  font-family: var(--sans); font-size: 15px; line-height: 1.6;
-  overflow-x: hidden; padding-inline: 20px;
-}
-
-#starfield { position:fixed; inset:0; z-index:0; pointer-events:none; }
-.horizon {
-  position:fixed; bottom:0; left:0; right:0; height:40vh;
-  background:linear-gradient(to top,rgba(201,169,110,.11) 0%,rgba(232,164,184,.07) 30%,transparent 100%);
-  pointer-events:none; z-index:0;
-}
-
-.page {
-  position:relative; z-index:1;
-  max-width:740px; margin:0 auto;
-  padding-block:64px 80px;
-  display:flex; flex-direction:column; align-items:center;
-}
-
-/* HERO */
-.hero { text-align:center; width:100%; margin-bottom:52px; }
-.eyebrow { font-size:10px; font-weight:500; letter-spacing:.26em; text-transform:uppercase; color:var(--gold); opacity:.75; margin-bottom:26px; }
-.names { font-family:var(--serif); font-size:clamp(58px,13vw,102px); font-weight:300; line-height:.93; letter-spacing:-.01em; text-wrap:balance; margin-bottom:14px; }
-.names em { font-style:italic; color:var(--rose); }
-.amp { color:var(--gold); font-style:normal; font-size:.68em; }
-.tagline { font-family:var(--serif); font-size:clamp(16px,3.2vw,21px); font-weight:300; font-style:italic; color:var(--muted); line-height:1.55; }
-
-.div-line { width:36px; height:1px; background:linear-gradient(to right,transparent,var(--gold),transparent); opacity:.45; margin:0 auto 8px; }
-
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--paper);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;overflow-x:hidden;padding-inline:20px;}
+#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.horizon{position:fixed;bottom:0;left:0;right:0;height:40vh;background:linear-gradient(to top,rgba(201,169,110,.11) 0%,rgba(232,164,184,.07) 30%,transparent 100%);pointer-events:none;z-index:0;}
+.page{position:relative;z-index:1;max-width:740px;margin:0 auto;padding-block:64px 80px;display:flex;flex-direction:column;align-items:center;}
+.hero{text-align:center;width:100%;margin-bottom:52px;}
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);opacity:.75;margin-bottom:26px;}
+.names{font-family:var(--serif);font-size:clamp(58px,13vw,102px);font-weight:300;line-height:.93;letter-spacing:-.01em;text-wrap:balance;margin-bottom:14px;}
+.names em{font-style:italic;color:var(--rose);}
+.amp{color:var(--gold);font-style:normal;font-size:.68em;}
+.tagline{font-family:var(--serif);font-size:clamp(16px,3.2vw,21px);font-weight:300;font-style:italic;color:var(--muted);line-height:1.55;}
+.div-line{width:36px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:.45;margin:0 auto 8px;}
 /* TABS */
-.tab-nav {
-  display:flex; gap:0; width:100%;
-  border-bottom:1px solid var(--border);
-  margin-bottom:48px; overflow-x:auto; scrollbar-width:none;
+.tab-nav{display:flex;gap:0;width:100%;border-bottom:1px solid var(--border);margin-bottom:48px;overflow-x:auto;scrollbar-width:none;}
+.tab-nav::-webkit-scrollbar{display:none;}
+.tab-btn{flex:1;min-width:72px;padding:14px 8px 13px;border:none;background:transparent;font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .22s,border-color .22s;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-panel{display:none;width:100%;animation:fadeIn .3s ease;}
+.tab-panel.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+.slabel{font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7;}
+/* FOTOS */
+.photo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:48px;}
+.pf{border-radius:5px;overflow:hidden;position:relative;background:var(--dim);}
+.pf.tall{grid-row:span 2;}
+.pf canvas{display:block;width:100%;height:100%;}
+.pf-cap{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;background:linear-gradient(transparent,rgba(0,0,0,.58));font-size:10px;color:rgba(255,255,255,.72);letter-spacing:.04em;}
+/* CARTA */
+.letter-box{padding:34px 34px 38px;background:var(--mist);border:1px solid var(--border);border-radius:12px;position:relative;}
+.letter-box::before{content:'\201C';position:absolute;top:-8px;left:26px;font-family:var(--serif);font-size:76px;line-height:1;color:var(--rose);opacity:.2;}
+.letter-box p{font-family:var(--serif);font-size:19px;font-weight:300;line-height:1.85;margin-bottom:16px;}
+.letter-box p:last-child{margin-bottom:0;}
+.highlight{color:var(--rose);font-style:italic;}
+.letter-sig{margin-top:22px;font-family:var(--serif);font-size:14px;font-style:italic;color:var(--muted);text-align:right;}
+/* ALMAS */
+.souls-intro{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--muted);text-align:center;line-height:1.7;margin-bottom:36px;}
+.soul-tabs{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;}
+.soul-btn{padding:9px 20px;border-radius:20px;border:1px solid var(--border);background:transparent;font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:all .22s;}
+.soul-btn.active{background:var(--mist);border-color:var(--rose);color:var(--rose);}
+.soul-btn:hover:not(.active){border-color:var(--muted);color:var(--text);}
+.soul-panel{display:none;}
+.soul-panel.active{display:block;}
+.soul-card{background:var(--mist);border:1px solid var(--border);border-radius:16px;padding:28px 28px 32px;margin-bottom:24px;}
+.soul-header{display:flex;align-items:center;gap:20px;margin-bottom:28px;padding-bottom:22px;border-bottom:1px solid var(--border);}
+.soul-zodiac-big{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;flex-shrink:0;border:1px solid var(--border);}
+.soul-name{font-family:var(--serif);font-size:28px;font-weight:300;line-height:1;margin-bottom:4px;}
+.soul-birth{font-size:12px;color:var(--muted);letter-spacing:.05em;}
+.astro-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+.astro-cell{padding:14px 16px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color .22s,background .22s;}
+.astro-cell:hover{border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.05);}
+.astro-lbl{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.astro-symbol{font-size:22px;line-height:1;margin-bottom:3px;}
+.astro-val{font-family:var(--serif);font-size:16px;font-weight:300;margin-bottom:2px;}
+.astro-deg{font-size:11px;color:var(--muted);font-style:italic;}
+.astro-reveal{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;color:var(--muted);line-height:1.55;font-style:italic;}
+.astro-cell.revealed .astro-reveal{display:block;}
+.tap-hint{font-size:10px;color:var(--muted);opacity:.5;text-align:center;margin-top:4px;letter-spacing:.05em;}
+.element-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.ebadge{padding:6px 14px;border-radius:20px;font-size:11px;letter-spacing:.08em;border:1px solid;}
+.compat-bar-wrap{margin-top:4px;}
+.compat-label{font-size:11px;color:var(--muted);margin-bottom:8px;}
+.compat-bar{height:4px;border-radius:2px;background:var(--mist);overflow:hidden;margin-bottom:12px;}
+.compat-fill{height:100%;border-radius:2px;transition:width 1.2s ease;}
+.compat-note{font-family:var(--serif);font-size:15px;font-weight:300;font-style:italic;color:var(--text);line-height:1.6;}
+/* UNIVERSO */
+.cosmos-intro{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--muted);text-align:center;margin-bottom:28px;line-height:1.6;}
+.u-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(195px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:36px;}
+.u-cell{background:var(--paper);padding:22px 20px;display:flex;flex-direction:column;gap:5px;cursor:pointer;transition:background .2s;}
+.u-cell:hover{background:var(--mist);}
+.u-cell.flipped .u-front{display:none;}
+.u-cell.flipped .u-back{display:flex;}
+.u-front{display:flex;flex-direction:column;gap:5px;}
+.u-back{display:none;flex-direction:column;gap:5px;justify-content:center;min-height:80px;}
+.u-back-text{font-size:13px;color:var(--muted);line-height:1.5;font-style:italic;}
+.u-icon{font-size:20px;margin-bottom:3px;}
+.u-lbl{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.u-val{font-family:var(--serif);font-size:19px;font-weight:300;line-height:1.2;}
+.u-sub{font-size:11px;color:var(--muted);font-style:italic;}
+.flip-hint{font-size:10px;color:var(--muted);opacity:.4;text-align:center;margin-bottom:12px;letter-spacing:.06em;}
+.const-wrap{background:var(--mist);border:1px solid var(--border);border-radius:12px;padding:28px;text-align:center;}
+.const-title{font-family:var(--serif);font-size:21px;font-weight:300;margin-bottom:4px;}
+.const-sub{font-size:12px;color:var(--muted);margin-bottom:20px;letter-spacing:.05em;}
+#constCanvas{width:100%;max-width:340px;display:block;margin:0 auto;}
+.zodiac-ring-wrap{margin-top:28px;}
+.zr-title{font-family:var(--serif);font-size:19px;font-weight:300;text-align:center;margin-bottom:4px;}
+.zr-sub{font-size:12px;color:var(--muted);text-align:center;margin-bottom:16px;}
+#zodiacRing{display:block;margin:0 auto;max-width:320px;width:100%;}
+/* HISTORIA */
+.timeline{position:relative;padding-left:28px;display:flex;flex-direction:column;gap:34px;}
+.timeline::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--gold),var(--rose),transparent);opacity:.32;}
+.t-item{position:relative;}
+.t-dot{position:absolute;left:-25px;top:6px;width:8px;height:8px;border-radius:50%;border:2px solid var(--paper);}
+.t-date{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.8;margin-bottom:3px;}
+.t-ttl{font-family:var(--serif);font-size:22px;font-weight:300;line-height:1.2;margin-bottom:5px;}
+.t-body{font-size:14px;color:var(--muted);line-height:1.65;max-width:520px;}
+/* TIEMPO */
+.counter-hero{text-align:center;margin-bottom:36px;}
+.big-days{font-family:var(--serif);font-size:clamp(72px,18vw,130px);font-weight:300;line-height:1;color:var(--text);font-variant-numeric:tabular-nums;}
+.big-label{font-size:11px;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-top:8px;}
+.counter-row{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;margin-bottom:44px;}
+.c-unit{display:flex;flex-direction:column;align-items:center;min-width:78px;padding:16px 10px 12px;background:var(--mist);border:1px solid var(--border);border-radius:8px;}
+.c-num{font-family:var(--serif);font-size:38px;font-weight:300;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;}
+.c-lbl{font-size:9px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:5px;}
+.c-sep{align-self:center;font-family:var(--serif);font-size:28px;color:var(--gold);opacity:.35;padding:0 2px;line-height:1;}
+.stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.stat-box{background:var(--mist);border:1px solid var(--border);border-radius:10px;padding:18px 16px;}
+.stat-n{font-family:var(--serif);font-size:clamp(22px,5vw,32px);font-weight:300;color:var(--rose);font-variant-numeric:tabular-nums;line-height:1;margin-bottom:4px;}
+.stat-desc{font-size:12px;color:var(--muted);line-height:1.4;}
+/* SOBRE */
+.envelope-wrap{text-align:center;padding:20px 0 10px;}
+.env-svg{width:120px;height:auto;margin:0 auto 24px;display:block;}
+.locked-msg{font-family:var(--serif);font-size:clamp(17px,3.5vw,21px);font-weight:300;font-style:italic;color:var(--muted);line-height:1.65;max-width:480px;margin:0 auto 28px;}
+.open-date-box{display:inline-block;padding:14px 28px;background:var(--mist);border:1px solid var(--border);border-radius:8px;margin-bottom:32px;}
+.open-date-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.open-date-val{font-family:var(--serif);font-size:22px;font-weight:300;color:var(--gold);}
+.countdown-sealed{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:36px;}
+.cs-unit{display:flex;flex-direction:column;align-items:center;min-width:64px;padding:12px 8px 10px;background:var(--mist);border:1px solid var(--border);border-radius:8px;}
+.cs-num{font-family:var(--serif);font-size:28px;font-weight:300;font-variant-numeric:tabular-nums;line-height:1;}
+.cs-lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.sealed-note{font-size:13px;color:var(--muted);font-style:italic;line-height:1.6;max-width:400px;margin:0 auto;}
+.footer{text-align:center;font-size:11px;color:var(--muted);letter-spacing:.1em;opacity:.45;margin-top:60px;}
+@media(max-width:500px){
+  .photo-grid{grid-template-columns:1fr 1fr;}
+  .pf.tall{grid-row:span 1;}
+  .letter-box{padding:24px 20px 28px;}
+  .letter-box p{font-size:17px;}
+  .c-num{font-size:30px;}
+  .c-unit{min-width:62px;padding:12px 8px 10px;}
+  .stat-row{grid-template-columns:1fr;}
+  .tab-btn{padding:12px 6px 11px;font-size:9px;}
+  .astro-grid{grid-template-columns:1fr;}
+  .soul-header{flex-direction:column;text-align:center;}
 }
-.tab-nav::-webkit-scrollbar { display:none; }
-.tab-btn {
-  flex:1; min-width:72px; padding:14px 8px 13px;
-  border:none; background:transparent;
-  font-family:var(--sans); font-size:10px; font-weight:500;
-  letter-spacing:.16em; text-transform:uppercase;
-  color:var(--muted); cursor:pointer;
-  border-bottom:2px solid transparent; margin-bottom:-1px;
-  transition:color .22s, border-color .22s; white-space:nowrap;
-}
-.tab-btn:hover { color:var(--text); }
-.tab-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
-
-.tab-panel { display:none; width:100%; animation:fadeIn .3s ease; }
-.tab-panel.active { display:block; }
-@keyframes fadeIn { from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;} }
-
-.slabel { font-size:10px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); opacity:.7; }
-
-/* ═══ TAB 1 — NOSOTROS ═══ */
-.photo-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-bottom:48px; }
-.pf { border-radius:5px; overflow:hidden; position:relative; background:var(--dim); }
-.pf.tall { grid-row:span 2; }
-.pf canvas { display:block; width:100%; height:100%; }
-.pf-cap { position:absolute; bottom:0; left:0; right:0; padding:10px 12px; background:linear-gradient(transparent,rgba(0,0,0,.58)); font-size:10px; color:rgba(255,255,255,.72); letter-spacing:.04em; }
-
-.letter-box { padding:34px 34px 38px; background:var(--mist); border:1px solid var(--border); border-radius:12px; position:relative; }
-.letter-box::before { content:'\201C'; position:absolute; top:-8px; left:26px; font-family:var(--serif); font-size:76px; line-height:1; color:var(--rose); opacity:.2; }
-.letter-box p { font-family:var(--serif); font-size:19px; font-weight:300; line-height:1.85; margin-bottom:16px; }
-.letter-box p:last-child { margin-bottom:0; }
-.letter-box .highlight { color:var(--rose); font-style:italic; }
-.letter-sig { margin-top:22px; font-family:var(--serif); font-size:14px; font-style:italic; color:var(--muted); text-align:right; }
-
-/* ═══ TAB 2 — ALMAS (NUEVO) ═══ */
-.souls-intro { font-family:var(--serif); font-style:italic; font-size:16px; color:var(--muted); text-align:center; line-height:1.7; margin-bottom:36px; }
-
-.soul-tabs { display:flex; gap:8px; justify-content:center; margin-bottom:32px; }
-.soul-btn {
-  padding:9px 24px; border-radius:20px;
-  border:1px solid var(--border); background:transparent;
-  font-family:var(--sans); font-size:11px; font-weight:500;
-  letter-spacing:.14em; text-transform:uppercase;
-  color:var(--muted); cursor:pointer;
-  transition:all .22s;
-}
-.soul-btn.active { background:var(--mist); border-color:var(--rose); color:var(--rose); }
-.soul-btn:hover:not(.active) { border-color:var(--muted); color:var(--text); }
-
-.soul-panel { display:none; }
-.soul-panel.active { display:block; }
-
-.soul-card {
-  background:var(--mist); border:1px solid var(--border);
-  border-radius:16px; padding:28px 28px 32px; margin-bottom:24px;
-}
-
-.soul-header {
-  display:flex; align-items:center; gap:20px; margin-bottom:28px;
-  padding-bottom:22px; border-bottom:1px solid var(--border);
-}
-.soul-zodiac-big {
-  width:72px; height:72px; border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  font-size:36px; flex-shrink:0;
-  border:1px solid var(--border);
-}
-.soul-name { font-family:var(--serif); font-size:28px; font-weight:300; line-height:1; margin-bottom:4px; }
-.soul-birth { font-size:12px; color:var(--muted); letter-spacing:.05em; }
-
-.astro-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
-.astro-cell {
-  padding:14px 16px;
-  background:rgba(255,255,255,.025); border:1px solid var(--border);
-  border-radius:10px; cursor:pointer;
-  transition:border-color .22s, background .22s;
-  position:relative; overflow:hidden;
-}
-.astro-cell:hover { border-color:rgba(201,169,110,.3); background:rgba(201,169,110,.05); }
-.astro-cell.revealed { border-color:rgba(201,169,110,.25); }
-.astro-lbl { font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
-.astro-symbol { font-size:22px; line-height:1; margin-bottom:3px; }
-.astro-val { font-family:var(--serif); font-size:16px; font-weight:300; margin-bottom:2px; }
-.astro-deg { font-size:11px; color:var(--muted); font-style:italic; }
-.astro-reveal {
-  display:none; margin-top:10px; padding-top:10px;
-  border-top:1px solid var(--border);
-  font-size:12px; color:var(--muted); line-height:1.55;
-  font-style:italic;
-}
-.astro-cell.revealed .astro-reveal { display:block; }
-.tap-hint { font-size:10px; color:var(--muted); opacity:.5; text-align:center; margin-top:4px; letter-spacing:.05em; }
-
-.compat-bar-wrap { margin-top:4px; }
-.compat-label { font-size:11px; color:var(--muted); margin-bottom:8px; }
-.compat-bar { height:4px; border-radius:2px; background:var(--mist); overflow:hidden; margin-bottom:12px; }
-.compat-fill { height:100%; border-radius:2px; transition:width 1.2s ease; }
-.compat-note { font-family:var(--serif); font-size:15px; font-weight:300; font-style:italic; color:var(--text); line-height:1.6; }
-
-.element-badges { display:flex; gap:8px; flex-wrap:wrap; margin-top:20px; }
-.ebadge { padding:6px 14px; border-radius:20px; font-size:11px; letter-spacing:.08em; border:1px solid; }
-
-/* ═══ TAB 3 — UNIVERSO ═══ */
-.cosmos-intro { font-family:var(--serif); font-style:italic; font-size:15px; color:var(--muted); text-align:center; margin-bottom:28px; line-height:1.6; }
-.u-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(195px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:36px; }
-.u-cell { background:var(--paper); padding:22px 20px; display:flex; flex-direction:column; gap:5px; cursor:pointer; transition:background .2s; }
-.u-cell:hover { background:var(--mist); }
-.u-cell.flipped .u-front { display:none; }
-.u-cell.flipped .u-back { display:flex; }
-.u-front { display:flex; flex-direction:column; gap:5px; }
-.u-back { display:none; flex-direction:column; gap:5px; justify-content:center; min-height:80px; }
-.u-back-text { font-size:13px; color:var(--muted); line-height:1.5; font-style:italic; }
-.u-icon { font-size:20px; margin-bottom:3px; }
-.u-lbl { font-size:10px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
-.u-val { font-family:var(--serif); font-size:19px; font-weight:300; line-height:1.2; }
-.u-sub { font-size:11px; color:var(--muted); font-style:italic; }
-.flip-hint { font-size:10px; color:var(--muted); opacity:.4; text-align:center; margin-bottom:12px; letter-spacing:.06em; }
-
-.const-wrap { background:var(--mist); border:1px solid var(--border); border-radius:12px; padding:28px; text-align:center; }
-.const-title { font-family:var(--serif); font-size:21px; font-weight:300; margin-bottom:4px; }
-.const-sub { font-size:12px; color:var(--muted); margin-bottom:20px; letter-spacing:.05em; }
-#constCanvas { width:100%; max-width:340px; display:block; margin:0 auto; }
-
-/* zodiac ring */
-.zodiac-ring-wrap { margin-top:28px; }
-.zr-title { font-family:var(--serif); font-size:19px; font-weight:300; text-align:center; margin-bottom:4px; }
-.zr-sub { font-size:12px; color:var(--muted); text-align:center; margin-bottom:16px; }
-#zodiacRing { display:block; margin:0 auto; max-width:320px; width:100%; }
-
-/* ═══ TAB 4 — HISTORIA ═══ */
-.timeline { position:relative; padding-left:28px; display:flex; flex-direction:column; gap:34px; }
-.timeline::before { content:''; position:absolute; left:6px; top:8px; bottom:8px; width:1px; background:linear-gradient(to bottom,var(--gold),var(--rose),transparent); opacity:.32; }
-.t-item { position:relative; }
-.t-dot { position:absolute; left:-25px; top:6px; width:8px; height:8px; border-radius:50%; background:var(--rose); border:2px solid var(--paper); box-shadow:0 0 10px rgba(232,164,184,.5); }
-.t-date { font-size:10px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); opacity:.8; margin-bottom:3px; }
-.t-ttl { font-family:var(--serif); font-size:22px; font-weight:300; line-height:1.2; margin-bottom:5px; }
-.t-body { font-size:14px; color:var(--muted); line-height:1.65; max-width:520px; }
-
-/* ═══ TAB 5 — TIEMPO ═══ */
-.counter-hero { text-align:center; margin-bottom:36px; }
-.big-days { font-family:var(--serif); font-size:clamp(72px,18vw,130px); font-weight:300; line-height:1; color:var(--text); font-variant-numeric:tabular-nums; }
-.big-label { font-size:11px; font-weight:500; letter-spacing:.25em; text-transform:uppercase; color:var(--gold); opacity:.7; margin-top:8px; }
-.counter-row { display:flex; justify-content:center; gap:4px; flex-wrap:wrap; margin-bottom:44px; }
-.c-unit { display:flex; flex-direction:column; align-items:center; min-width:78px; padding:16px 10px 12px; background:var(--mist); border:1px solid var(--border); border-radius:8px; }
-.c-num { font-family:var(--serif); font-size:38px; font-weight:300; line-height:1; font-variant-numeric:tabular-nums; letter-spacing:-.02em; }
-.c-lbl { font-size:9px; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-top:5px; }
-.c-sep { align-self:center; font-family:var(--serif); font-size:28px; color:var(--gold); opacity:.35; padding:0 2px; line-height:1; }
-.stat-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.stat-box { background:var(--mist); border:1px solid var(--border); border-radius:10px; padding:18px 16px; }
-.stat-n { font-family:var(--serif); font-size:clamp(22px,5vw,32px); font-weight:300; color:var(--rose); font-variant-numeric:tabular-nums; line-height:1; margin-bottom:4px; }
-.stat-desc { font-size:12px; color:var(--muted); line-height:1.4; }
-
-/* ═══ TAB 6 — SOBRE SELLADO ═══ */
-.envelope-wrap { text-align:center; padding:20px 0 10px; }
-.env-svg { width:120px; height:auto; margin:0 auto 24px; display:block; }
-.locked-msg { font-family:var(--serif); font-size:clamp(17px,3.5vw,21px); font-weight:300; font-style:italic; color:var(--muted); line-height:1.65; max-width:480px; margin:0 auto 28px; }
-.open-date-box { display:inline-block; padding:14px 28px; background:var(--mist); border:1px solid var(--border); border-radius:8px; margin-bottom:32px; }
-.open-date-label { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
-.open-date-val { font-family:var(--serif); font-size:22px; font-weight:300; color:var(--gold); }
-.countdown-sealed { display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin-bottom:36px; }
-.cs-unit { display:flex; flex-direction:column; align-items:center; min-width:64px; padding:12px 8px 10px; background:var(--mist); border:1px solid var(--border); border-radius:8px; }
-.cs-num { font-family:var(--serif); font-size:28px; font-weight:300; font-variant-numeric:tabular-nums; line-height:1; }
-.cs-lbl { font-size:9px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); margin-top:4px; }
-.sealed-note { font-size:13px; color:var(--muted); font-style:italic; line-height:1.6; max-width:400px; margin:0 auto; }
-
-.footer { text-align:center; font-size:11px; color:var(--muted); letter-spacing:.1em; opacity:.45; margin-top:60px; }
-
-/* RESPONSIVE */
-@media (max-width:500px) {
-  .photo-grid { grid-template-columns:1fr 1fr; }
-  .pf.tall { grid-row:span 1; }
-  .letter-box { padding:24px 20px 28px; }
-  .letter-box p { font-size:17px; }
-  .c-num { font-size:30px; }
-  .c-unit { min-width:62px; padding:12px 8px 10px; }
-  .stat-row { grid-template-columns:1fr; }
-  .tab-btn { padding:12px 6px 11px; font-size:9px; }
-  .astro-grid { grid-template-columns:1fr; }
-  .soul-header { flex-direction:column; text-align:center; }
-}
-@media (prefers-reduced-motion:reduce) {
-  *{ animation-duration:.01ms!important; transition-duration:.01ms!important; }
-}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
 </style>
+</head>
+<body>
 
 <canvas id="starfield"></canvas>
 <div class="horizon"></div>
 
 <main class="page">
-
-  <!-- HERO -->
   <header class="hero">
     <div class="eyebrow">Una historia escrita en las estrellas</div>
-    <h1 class="names"><em>Sofía</em> <span class="amp">&amp;</span> <em>Mateo</em></h1>
-    <p class="tagline">Desde el 14 de febrero de 2025,<br>el universo nos puso en el mismo horizonte.</p>
+    <h1 class="names" id="heroNames"></h1>
+    <p class="tagline" id="heroTagline"></p>
   </header>
 
-  <!-- TAB NAV -->
   <nav class="tab-nav" role="tablist">
-    <button class="tab-btn active" data-tab="t-nosotros" role="tab">Nosotros</button>
-    <button class="tab-btn"        data-tab="t-almas"    role="tab">Almas</button>
-    <button class="tab-btn"        data-tab="t-universo" role="tab">Universo</button>
-    <button class="tab-btn"        data-tab="t-historia" role="tab">Historia</button>
-    <button class="tab-btn"        data-tab="t-tiempo"   role="tab">Tiempo</button>
-    <button class="tab-btn"        data-tab="t-sobre"    role="tab">Sobre</button>
+    <button class="tab-btn active" data-tab="t-nosotros">Nosotros</button>
+    <button class="tab-btn"        data-tab="t-almas">Almas</button>
+    <button class="tab-btn"        data-tab="t-universo">Universo</button>
+    <button class="tab-btn"        data-tab="t-historia">Historia</button>
+    <button class="tab-btn"        data-tab="t-tiempo">Tiempo</button>
+    <button class="tab-btn"        data-tab="t-sobre">Sobre</button>
   </nav>
 
-  <!-- ═══ PANEL 1 — NOSOTROS ═══ -->
+  <!-- PANEL 1 — NOSOTROS -->
   <div id="t-nosotros" class="tab-panel active">
     <div class="div-line"></div>
     <div class="slabel" style="text-align:center;margin-bottom:18px;">Nuestros momentos</div>
     <div class="photo-grid" id="photoGrid"></div>
     <div class="div-line" style="margin-top:8px;margin-bottom:26px;"></div>
     <div class="slabel" style="text-align:center;margin-bottom:20px;">Para ti</div>
-    <div class="letter-box">
-      <p>No sé exactamente cuándo pasó. No hubo un instante preciso, ni una escena de película. Fue algo más lento, más parecido a la manera en que amanece: sin que nadie lo decida, la oscuridad simplemente deja de serlo.</p>
-      <p>Contigo aprendí que hay personas que no irrumpen en tu vida, sino que la expanden. Y desde que llegaste, todo ocupa más espacio, en el buen sentido.</p>
-      <p class="highlight">Gracias por quedarte.</p>
-    </div>
-    <div class="letter-sig">Con todo, Mateo.</div>
+    <div class="letter-box" id="letterBox"></div>
+    <div class="letter-sig" id="letterSig"></div>
   </div>
 
-  <!-- ═══ PANEL 2 — ALMAS ═══ -->
+  <!-- PANEL 2 — ALMAS -->
   <div id="t-almas" class="tab-panel">
     <div class="div-line"></div>
     <div class="slabel" style="text-align:center;margin-bottom:10px;">Cartas astrales</div>
     <p class="souls-intro">Dos fechas de nacimiento.<br>Un mismo universo que las guardó cerca.</p>
-
     <div class="soul-tabs">
-      <button class="soul-btn active" data-soul="s-sofia">♀ Sofía</button>
-      <button class="soul-btn"        data-soul="s-mateo">♂ Mateo</button>
+      <button class="soul-btn active" data-soul="s-p1" id="btnP1"></button>
+      <button class="soul-btn"        data-soul="s-p2" id="btnP2"></button>
       <button class="soul-btn"        data-soul="s-compat">✦ Compatibilidad</button>
     </div>
-
-    <!-- SOFÍA -->
-    <div id="s-sofia" class="soul-panel active">
-      <div class="soul-card">
-        <div class="soul-header">
-          <div class="soul-zodiac-big" style="background:rgba(232,164,184,.1);border-color:rgba(232,164,184,.25);">♏</div>
-          <div>
-            <div class="soul-name">Sofía</div>
-            <div class="soul-birth">3 de noviembre de 1997 · Medellín</div>
-            <div class="element-badges" style="margin-top:8px;">
-              <span class="ebadge" style="color:var(--rose);border-color:rgba(232,164,184,.3);background:rgba(232,164,184,.07);">Agua</span>
-              <span class="ebadge" style="color:var(--gold);border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.07);">Fijo</span>
-            </div>
-          </div>
-        </div>
-        <p class="tap-hint">Toca cada planeta para descubrir su influencia</p>
-        <div class="astro-grid">
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">☀ Sol</div>
-            <div class="astro-symbol">♏</div>
-            <div class="astro-val">Escorpión</div>
-            <div class="astro-deg">10° 47' Escorpión</div>
-            <div class="astro-reveal">Profunda, intuitiva y magnética. Cuando ama, lo hace sin reservas y con una intensidad que pocas personas comprenden del todo. Su corazón es un océano.</div>
-          </div>
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">☽ Luna</div>
-            <div class="astro-symbol">♓</div>
-            <div class="astro-val">Piscis</div>
-            <div class="astro-deg">22° 14' Piscis</div>
-            <div class="astro-reveal">Sus emociones no conocen límites. Siente el mundo de manera extraordinariamente sensible, casi como si llevara el alma de los demás dentro de la propia.</div>
-          </div>
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">↑ Ascendente</div>
-            <div class="astro-symbol">♌</div>
-            <div class="astro-val">Leo</div>
-            <div class="astro-deg">17° 30' Leo · 6:15 AM</div>
-            <div class="astro-reveal">Proyecta calidez y presencia antes de decir una sola palabra. La gente la nota cuando entra a una habitación, aunque ella rara vez lo busque.</div>
-          </div>
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">☿ Mercurio</div>
-            <div class="astro-symbol">♏</div>
-            <div class="astro-val">Escorpión</div>
-            <div class="astro-deg">28° 02' Escorpión</div>
-            <div class="astro-reveal">Piensa en capas. Cada palabra que dice tiene una segunda y una tercera lectura. Detecta mentiras con una facilidad que desconcierta.</div>
-          </div>
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">♀ Venus</div>
-            <div class="astro-symbol">♐</div>
-            <div class="astro-val">Sagitario</div>
-            <div class="astro-deg">5° 19' Sagitario</div>
-            <div class="astro-reveal">Ama con libertad. No encadena ni quiere ser encadenada. Para ella, el amor verdadero es el que te hace crecer hacia afuera, no solo hacia adentro.</div>
-          </div>
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">♂ Marte</div>
-            <div class="astro-symbol">♑</div>
-            <div class="astro-val">Capricornio</div>
-            <div class="astro-deg">14° 55' Capricornio</div>
-            <div class="astro-reveal">Paciente y estratégica. No actúa por impulso; construye. Cuando decide perseguir algo, nada la detiene. Nada.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MATEO -->
-    <div id="s-mateo" class="soul-panel">
-      <div class="soul-card">
-        <div class="soul-header">
-          <div class="soul-zodiac-big" style="background:rgba(138,180,212,.1);border-color:rgba(138,180,212,.25);">♒</div>
-          <div>
-            <div class="soul-name">Mateo</div>
-            <div class="soul-birth">28 de enero de 1995 · Bogotá</div>
-            <div class="element-badges" style="margin-top:8px;">
-              <span class="ebadge" style="color:var(--sky);border-color:rgba(138,180,212,.3);background:rgba(138,180,212,.07);">Aire</span>
-              <span class="ebadge" style="color:var(--gold);border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.07);">Fijo</span>
-            </div>
-          </div>
-        </div>
-        <p class="tap-hint">Toca cada planeta para descubrir su influencia</p>
-        <div class="astro-grid">
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">☀ Sol</div>
-            <div class="astro-symbol">♒</div>
-            <div class="astro-val">Acuario</div>
-            <div class="astro-deg">8° 12' Acuario</div>
-            <div class="astro-reveal">Piensa diferente, casi siempre antes que los demás. No sigue caminos, los abre. Ama con una ternura que no siempre sabe expresar con palabras.</div>
-          </div>
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">☽ Luna</div>
-            <div class="astro-symbol">♊</div>
-            <div class="astro-val">Géminis</div>
-            <div class="astro-deg">3° 58' Géminis</div>
-            <div class="astro-reveal">Sus emociones cambian de velocidad, pero no de dirección. Necesita hablar para procesar lo que siente, aunque a veces eso llegue tarde.</div>
-          </div>
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">↑ Ascendente</div>
-            <div class="astro-symbol">♎</div>
-            <div class="astro-val">Libra</div>
-            <div class="astro-deg">24° 10' Libra · 7:40 AM</div>
-            <div class="astro-reveal">La armonía que proyecta es real, aunque le cueste mantenerla. Tiene un talento natural para hacer que las personas a su lado se sientan vistas.</div>
-          </div>
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">☿ Mercurio</div>
-            <div class="astro-symbol">♒</div>
-            <div class="astro-val">Acuario</div>
-            <div class="astro-deg">20° 31' Acuario</div>
-            <div class="astro-reveal">Su mente trabaja en saltos, no en líneas rectas. Conecta ideas que nadie más conecta, y cuando explica algo, lo hace de un modo que cambia la manera en que lo ves.</div>
-          </div>
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">♀ Venus</div>
-            <div class="astro-symbol">♓</div>
-            <div class="astro-val">Piscis</div>
-            <div class="astro-deg">11° 44' Piscis</div>
-            <div class="astro-reveal">Ama con toda la imaginación que tiene. Idealiza, pero de una manera que hace que quien ama se sienta algo más que real. Una rareza.</div>
-          </div>
-          <div class="astro-cell" onclick="this.classList.toggle('revealed')">
-            <div class="astro-lbl">♂ Marte</div>
-            <div class="astro-symbol">♒</div>
-            <div class="astro-val">Acuario</div>
-            <div class="astro-deg">2° 07' Acuario</div>
-            <div class="astro-reveal">Su energía es disruptiva y tranquila al mismo tiempo. No pelea, razona. Y casi siempre tiene razón, lo que puede ser tanto una virtud como un problema.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- COMPATIBILIDAD -->
-    <div id="s-compat" class="soul-panel">
-      <div class="soul-card">
-        <div style="text-align:center;margin-bottom:28px;">
-          <div style="font-size:42px;margin-bottom:10px;">♏ ✦ ♒</div>
-          <div style="font-family:var(--serif);font-size:24px;font-weight:300;">Escorpión &amp; Acuario</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px;">Agua &amp; Aire · Una combinación que el cosmos no crea dos veces</div>
-        </div>
-
-        <div class="compat-bar-wrap">
-          <div class="compat-label">Conexión emocional</div>
-          <div class="compat-bar"><div class="compat-fill" style="width:0%;background:linear-gradient(to right,var(--rose),var(--lavender));" data-w="82%"></div></div>
-
-          <div class="compat-label">Comunicación</div>
-          <div class="compat-bar"><div class="compat-fill" style="width:0%;background:linear-gradient(to right,var(--sky),var(--sage));" data-w="74%"></div></div>
-
-          <div class="compat-label">Atracción &amp; química</div>
-          <div class="compat-bar"><div class="compat-fill" style="width:0%;background:linear-gradient(to right,var(--gold),var(--rose));" data-w="91%"></div></div>
-
-          <div class="compat-label">Valores compartidos</div>
-          <div class="compat-bar"><div class="compat-fill" style="width:0%;background:linear-gradient(to right,var(--sage),var(--sky));" data-w="68%"></div></div>
-
-          <div class="compat-label">Crecimiento mutuo</div>
-          <div class="compat-bar"><div class="compat-fill" style="width:0%;background:linear-gradient(to right,var(--lavender),var(--gold));" data-w="88%"></div></div>
-        </div>
-
-        <div style="margin-top:28px;padding-top:22px;border-top:1px solid var(--border);">
-          <div class="compat-note">
-            Escorpión y Acuario no son la combinación que los libros de astrología recomiendan. Y precisamente por eso funcionan de una manera que es difícil de explicar desde afuera. Uno siente demasiado; el otro piensa demasiado. Juntos, se equilibran.
-          </div>
-          <div class="compat-note" style="margin-top:14px;">
-            El magnetismo de Escorpión desafía la racionalidad de Acuario. La libertad de Acuario enseña a Escorpión que confiar no es rendirse. Es una de esas parejas que el universo no crea dos veces.
-          </div>
-        </div>
-
-        <div style="margin-top:24px;padding:16px 18px;background:rgba(201,169,110,.06);border:1px solid rgba(201,169,110,.15);border-radius:10px;text-align:center;">
-          <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:6px;">Aspecto clave</div>
-          <div style="font-family:var(--serif);font-size:16px;font-weight:300;line-height:1.5;">Venus de Mateo en Piscis trine Luna de Sofía en Piscis.<br>Una rareza. Hablan el mismo idioma sin saberlo.</div>
-        </div>
-      </div>
-    </div>
+    <div id="s-p1"     class="soul-panel active"></div>
+    <div id="s-p2"     class="soul-panel"></div>
+    <div id="s-compat" class="soul-panel"></div>
   </div>
 
-  <!-- ═══ PANEL 3 — UNIVERSO ═══ -->
+  <!-- PANEL 3 — UNIVERSO -->
   <div id="t-universo" class="tab-panel">
     <div class="div-line"></div>
     <div class="slabel" style="text-align:center;margin-bottom:6px;">El universo aquel día</div>
-    <p class="cosmos-intro">14 de febrero de 2025 · 4:00 p.m. · Bogotá, Colombia<br>Mientras tú y yo tomábamos café, esto pasaba en el cosmos.</p>
+    <p class="cosmos-intro" id="cosmosIntro"></p>
     <p class="flip-hint">↩ Toca cada dato para saber más</p>
-
-    <div class="u-grid">
-      <div class="u-cell" onclick="this.classList.toggle('flipped')">
-        <div class="u-front"><div class="u-icon">☀️</div><div class="u-lbl">Constelación solar</div><div class="u-val">Acuario</div><div class="u-sub">Sol en 25° 32′ Acuario</div></div>
-        <div class="u-back"><div class="u-back-text">El Sol transitaba Acuario: el signo del visionario. El día que se conocieron, el cosmos pedía romper esquemas. Lo hicieron.</div></div>
-      </div>
-      <div class="u-cell" onclick="this.classList.toggle('flipped')">
-        <div class="u-front"><div class="u-icon">🌕</div><div class="u-lbl">Fase lunar</div><div class="u-val">Luna llena</div><div class="u-sub">Iluminación 98.4% · Virgo</div></div>
-        <div class="u-back"><div class="u-back-text">Luna llena en Virgo: el momento de máxima claridad emocional. Nada estaba a medias. Lo que sintieron ese día fue completo desde el principio.</div></div>
-      </div>
-      <div class="u-cell" onclick="this.classList.toggle('flipped')">
-        <div class="u-front"><div class="u-icon">⭐</div><div class="u-lbl">Estrella más brillante</div><div class="u-val">Sirio</div><div class="u-sub">8.6 años luz · Canis Major</div></div>
-        <div class="u-back"><div class="u-back-text">Sirio, la estrella más brillante del cielo nocturno, era visible esa noche desde Bogotá. Los egipcios la asociaban con el amor eterno y el regreso de lo que se perdió.</div></div>
-      </div>
-      <div class="u-cell" onclick="this.classList.toggle('flipped')">
-        <div class="u-front"><div class="u-icon">🌍</div><div class="u-lbl">Distancia Tierra-Sol</div><div class="u-val">147.8 M km</div><div class="u-sub">Cerca del perihelio</div></div>
-        <div class="u-back"><div class="u-back-text">La Tierra estaba en su punto más cercano al Sol del año. Todo el sistema solar conspiraba para acercar cosas. Incluidos ellos dos.</div></div>
-      </div>
-      <div class="u-cell" onclick="this.classList.toggle('flipped')">
-        <div class="u-front"><div class="u-icon">🌡️</div><div class="u-lbl">Clima en Bogotá</div><div class="u-val">14 °C</div><div class="u-sub">Llovizna · humedad 82%</div></div>
-        <div class="u-back"><div class="u-back-text">Llovía. Esa lluvia bogotana que no moja rápido sino despacio, que obliga a quedarse. Que los obligó a seguir hablando.</div></div>
-      </div>
-      <div class="u-cell" onclick="this.classList.toggle('flipped')">
-        <div class="u-front"><div class="u-icon">♀♒</div><div class="u-lbl">Venus &amp; Júpiter</div><div class="u-val">Conjunción</div><div class="u-sub">Piscis · 17° separación</div></div>
-        <div class="u-back"><div class="u-back-text">Venus (amor) y Júpiter (expansión) estaban en conjunción ese día. En astrología, es uno de los mejores augurios posibles para el inicio de una relación.</div></div>
-      </div>
-    </div>
-
+    <div class="u-grid" id="uGrid"></div>
     <div class="const-wrap">
-      <div class="const-title">Mapa estelar del 14 · 02 · 2025</div>
-      <div class="const-sub">Vista desde Bogotá · 4.7° N, 74.1° O · 22:00 local</div>
+      <div class="const-title" id="constTitle"></div>
+      <div class="const-sub" id="constSub"></div>
       <canvas id="constCanvas" width="340" height="340"></canvas>
     </div>
-
     <div class="zodiac-ring-wrap">
-      <div class="zr-title" style="margin-top:28px;">Rueda zodiacal del encuentro</div>
-      <div class="zr-sub">Posiciones planetarias · 14 de febrero de 2025</div>
+      <div class="zr-title">Rueda zodiacal del encuentro</div>
+      <div class="zr-sub" id="zrSub"></div>
       <canvas id="zodiacRing" width="320" height="320"></canvas>
     </div>
   </div>
 
-  <!-- ═══ PANEL 4 — HISTORIA ═══ -->
+  <!-- PANEL 4 — HISTORIA -->
   <div id="t-historia" class="tab-panel">
     <div class="div-line"></div>
     <div class="slabel" style="text-align:center;margin-bottom:24px;">Nuestra historia</div>
-    <div class="timeline">
-      <div class="t-item">
-        <div class="t-dot" style="background:var(--sky);box-shadow:0 0 10px rgba(138,180,212,.5)"></div>
-        <div class="t-date">Noviembre 2024</div>
-        <div class="t-ttl">El primer mensaje</div>
-        <div class="t-body">Un texto de buenas noches que llegó a las 11:47 p.m. y que ninguno olvidó. Nada comenzó esa noche, pero algo se sembró.</div>
-      </div>
-      <div class="t-item">
-        <div class="t-dot" style="background:var(--rose)"></div>
-        <div class="t-date">14 de febrero de 2025</div>
-        <div class="t-ttl">El día que todo empezó</div>
-        <div class="t-body">Café en La Candelaria, lluvia a las 4 p.m., y una conversación que duró hasta que cerraron el lugar. Ese día supimos.</div>
-      </div>
-      <div class="t-item">
-        <div class="t-dot" style="background:var(--gold);box-shadow:0 0 10px rgba(201,169,110,.5)"></div>
-        <div class="t-date">1 de mayo de 2025</div>
-        <div class="t-ttl">La primera escapada</div>
-        <div class="t-body">Villa de Leyva. Una tarde completa sin planes. Aprendimos que somos buenos en el silencio cómodo.</div>
-      </div>
-      <div class="t-item">
-        <div class="t-dot" style="background:var(--sage);box-shadow:0 0 10px rgba(138,189,168,.5)"></div>
-        <div class="t-date">Agosto 2025</div>
-        <div class="t-ttl">El primer "quedémonos"</div>
-        <div class="t-body">Decidimos que algunas noches no necesitan excusa. Esta fue la primera de muchas.</div>
-      </div>
-      <div class="t-item">
-        <div class="t-dot" style="background:var(--rose)"></div>
-        <div class="t-date">Hoy</div>
-        <div class="t-ttl">Seguimos aquí</div>
-        <div class="t-body">Y cada día que pasa tiene su propio peso. Este es uno de ellos.</div>
-      </div>
-    </div>
+    <div class="timeline" id="timeline"></div>
   </div>
 
-  <!-- ═══ PANEL 5 — TIEMPO ═══ -->
+  <!-- PANEL 5 — TIEMPO -->
   <div id="t-tiempo" class="tab-panel">
     <div class="div-line"></div>
     <div class="slabel" style="text-align:center;margin-bottom:20px;">Tiempo juntos</div>
@@ -577,12 +397,12 @@ body {
     <div class="stat-row" id="statRow"></div>
   </div>
 
-  <!-- ═══ PANEL 6 — SOBRE SELLADO ═══ -->
+  <!-- PANEL 6 — SOBRE -->
   <div id="t-sobre" class="tab-panel">
     <div class="div-line"></div>
     <div class="slabel" style="text-align:center;margin-bottom:24px;">Sobre sellado</div>
     <div class="envelope-wrap">
-      <svg class="env-svg" viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg class="env-svg" viewBox="0 0 120 90" fill="none">
         <rect x="2" y="18" width="116" height="70" rx="6" fill="rgba(255,255,255,.05)" stroke="rgba(201,169,110,.4)" stroke-width="1.5"/>
         <path d="M2 24 L60 58 L118 24" stroke="rgba(201,169,110,.45)" stroke-width="1.5" fill="none"/>
         <path d="M2 88 L44 52" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
@@ -595,7 +415,7 @@ body {
       <p class="locked-msg">Hay palabras que no están listas todavía.<br>Esta carta se escribió para ser leída<br>exactamente en el momento correcto.</p>
       <div class="open-date-box">
         <div class="open-date-label">Se abre el</div>
-        <div class="open-date-val">14 de febrero de 2026</div>
+        <div class="open-date-val" id="sobreVal"></div>
       </div>
       <div class="slabel" style="margin-bottom:14px;">Tiempo para abrirlo</div>
       <div class="countdown-sealed">
@@ -611,239 +431,324 @@ body {
     </div>
   </div>
 
-  <footer class="footer">♡ &nbsp; hecho con amor · 2025</footer>
+  <footer class="footer">&#9825; &nbsp; hecho con amor</footer>
 </main>
 
 <script>
-/* ── STARFIELD ── */
-(function(){
-  const c=document.getElementById('starfield'),ctx=c.getContext('2d');
-  let stars=[];
-  function resize(){c.width=innerWidth;c.height=innerHeight;}
-  function init(){
-    stars=[];
-    const n=Math.floor(c.width*c.height/3600);
-    for(let i=0;i<n;i++) stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.1+.2,a:Math.random(),da:(Math.random()-.5)*.004,sp:Math.random()*.14+.03});
-  }
-  function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    const dark=document.documentElement.dataset.theme==='light'?false:document.documentElement.dataset.theme==='dark'?true:matchMedia('(prefers-color-scheme:dark)').matches;
-    if(!dark){requestAnimationFrame(draw);return;}
-    stars.forEach(s=>{
-      s.a+=s.da;if(s.a<0||s.a>1)s.da*=-1;
-      s.y-=s.sp;if(s.y<-2)s.y=c.height+2;
-      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(232,228,240,${s.a*.75})`;ctx.fill();
-    });
-    requestAnimationFrame(draw);
-  }
-  resize();init();draw();
-  addEventListener('resize',()=>{resize();init();});
-})();
+/* ════════════════════════════════════════
+   RENDER — poblar DOM desde CONFIG
+   ════════════════════════════════════════ */
 
-/* ── CONSTELLATION CANVAS ── */
+// Título de la página y hero
+document.title = CONFIG.nombre1 + ' & ' + CONFIG.nombre2;
+document.getElementById('heroNames').innerHTML =
+  '<em>' + CONFIG.nombre1 + '</em> <span class="amp">&amp;</span> <em>' + CONFIG.nombre2 + '</em>';
+document.getElementById('heroTagline').textContent = CONFIG.tagline;
+document.getElementById('sobreVal').textContent = CONFIG.fechaSobreTexto;
+document.getElementById('btnP1').textContent = '♀ ' + CONFIG.nombre1;
+document.getElementById('btnP2').textContent = '♂ ' + CONFIG.nombre2;
+
+// Carta de amor
 (function(){
-  const cv=document.getElementById('constCanvas');
-  if(!cv)return;
-  const cx=cv.getContext('2d'),W=340,H=340;
-  const bg=cx.createRadialGradient(W/2,H/2,0,W/2,H/2,W/2);
-  bg.addColorStop(0,'#1a1233');bg.addColorStop(1,'#080614');
-  cx.fillStyle=bg;cx.fillRect(0,0,W,H);
-  const mw=cx.createLinearGradient(0,H*.3,W,H*.7);
-  mw.addColorStop(0,'transparent');mw.addColorStop(.5,'rgba(255,255,255,.025)');mw.addColorStop(1,'transparent');
-  cx.fillStyle=mw;cx.fillRect(0,0,W,H);
-  const pts=[[170,90],[155,110],[145,135],[155,160],[170,178],[185,200],[195,220],[205,240],[195,255],[178,262],[162,258]];
-  cx.beginPath();cx.moveTo(...pts[0]);
-  pts.slice(1).forEach(p=>cx.lineTo(...p));
-  cx.strokeStyle='rgba(201,169,110,.35)';cx.lineWidth=1.2;cx.stroke();
-  pts.forEach(([x,y])=>{
-    const r=cx.createRadialGradient(x,y,0,x,y,4);
-    r.addColorStop(0,'rgba(255,240,220,1)');r.addColorStop(1,'transparent');
-    cx.fillStyle=r;cx.fillRect(x-4,y-4,8,8);
+  const box = document.getElementById('letterBox');
+  CONFIG.carta.parrafos.forEach(t => {
+    const p = document.createElement('p'); p.innerHTML = t; box.appendChild(p);
   });
-  for(let i=0;i<210;i++){
-    const x=Math.random()*W,y=Math.random()*H,r=Math.random()*1+.15;
-    const g=cx.createRadialGradient(x,y,0,x,y,r*2.5);
-    g.addColorStop(0,`rgba(232,228,240,${Math.random()*.9+.1})`);g.addColorStop(1,'transparent');
-    cx.fillStyle=g;cx.fillRect(x-r*2.5,y-r*2.5,r*5,r*5);
-  }
-  cx.font='500 10px "DM Sans",system-ui';cx.fillStyle='rgba(201,169,110,.55)';
-  cx.textAlign='center';
-  cx.fillText('ACUARIO  ✦  SOL EN 25° 32\'',W/2,H-16);
+  document.getElementById('letterSig').textContent = CONFIG.carta.firma;
 })();
 
-/* ── ZODIAC RING ── */
+// Fotos generadas
 (function(){
-  const cv=document.getElementById('zodiacRing');
-  if(!cv)return;
-  const cx=cv.getContext('2d'),W=320,H=320,CX=W/2,CY=H/2;
-  // background
-  const bg=cx.createRadialGradient(CX,CY,0,CX,CY,W/2);
-  bg.addColorStop(0,'#16102a');bg.addColorStop(1,'#080614');
-  cx.fillStyle=bg;cx.fillRect(0,0,W,H);
+  const grid = document.getElementById('photoGrid');
+  CONFIG.fotos.forEach(p => {
+    const f = document.createElement('div'); f.className = 'pf' + (p.tall ? ' tall' : '');
+    const cv = document.createElement('canvas'); cv.width = 400; cv.height = p.tall ? 560 : 260;
+    cv.style.cssText = 'display:block;width:100%;height:100%;';
+    const cx = cv.getContext('2d');
+    const g = cx.createLinearGradient(0, 0, cv.width, cv.height);
+    p.pal.forEach((c, i) => g.addColorStop(i / (p.pal.length - 1), c));
+    cx.fillStyle = g; cx.fillRect(0, 0, cv.width, cv.height);
+    for (let i = 0; i < 2800; i++) {
+      cx.fillStyle = 'rgba(255,255,255,' + (Math.random() * .04) + ')';
+      cx.fillRect(Math.random() * cv.width, Math.random() * cv.height, 1, 1);
+    }
+    for (let k = 0; k < 3; k++) {
+      const ox = cv.width * (.2 + Math.random() * .6), oy = cv.height * (.2 + Math.random() * .6), r = 80 + Math.random() * 110;
+      const og = cx.createRadialGradient(ox, oy, 0, ox, oy, r);
+      og.addColorStop(0, 'rgba(255,255,255,' + (.05 + Math.random() * .07) + ')'); og.addColorStop(1, 'transparent');
+      cx.fillStyle = og; cx.fillRect(0, 0, cv.width, cv.height);
+    }
+    f.appendChild(cv);
+    const cap = document.createElement('div'); cap.className = 'pf-cap'; cap.textContent = p.cap;
+    f.appendChild(cap); grid.appendChild(f);
+  });
+})();
 
-  // zodiac ring
-  const signs=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
-  const signNames=['Aries','Tauro','Géminis','Cáncer','Leo','Virgo','Libra','Escorpión','Sagitario','Capricornio','Acuario','Piscis'];
-  const R=130,r=105,rt=142;
-  // outer ring
-  for(let i=0;i<12;i++){
-    const a0=(i/12)*Math.PI*2-Math.PI/2, a1=((i+1)/12)*Math.PI*2-Math.PI/2;
-    cx.beginPath();cx.moveTo(CX,CY);cx.arc(CX,CY,R,a0,a1);cx.closePath();
-    cx.fillStyle=i%2===0?'rgba(255,255,255,.025)':'rgba(255,255,255,.012)';cx.fill();
-    cx.strokeStyle='rgba(255,255,255,.06)';cx.lineWidth=.8;cx.stroke();
-    // sign symbol
-    const am=(i+.5)/12*Math.PI*2-Math.PI/2;
-    const sx=CX+rt*Math.cos(am), sy=CY+rt*Math.sin(am);
-    cx.font='13px serif';cx.fillStyle='rgba(201,169,110,.65)';
-    cx.textAlign='center';cx.textBaseline='middle';
-    cx.fillText(signs[i],sx,sy);
-  }
-  // inner circle
-  cx.beginPath();cx.arc(CX,CY,r,0,Math.PI*2);
-  cx.strokeStyle='rgba(255,255,255,.08)';cx.lineWidth=1;cx.stroke();
-
-  // planets on Feb 14 2025 (approximate ecliptic longitudes → ring position)
-  // Aries=0°, each sign=30°, total 360°
-  const planets=[
-    {name:'☀',deg:325,color:'#f9d56e',label:'Sol'},      // 25° Acuario = 300+25=325
-    {name:'☽',deg:171,color:'#c8d8e8',label:'Luna'},     // Virgo ~171°
-    {name:'☿',deg:338,color:'#b8c8d8',label:'Mercurio'}, // 28° Acuario=328, close
-    {name:'♀',deg:15, color:'#e8a4b8',label:'Venus'},    // 15° Aries aprox
-    {name:'♂',deg:75, color:'#e87050',label:'Marte'},    // Géminis ~75°
-    {name:'♃',deg:55, color:'#c8a870',label:'Júpiter'},  // Tauro ~55°
+// Alma card
+function buildSoulCard(containerId, cfg, nombre, fechaNac, ciudad) {
+  const c = document.getElementById(containerId);
+  const planetas = [
+    ['☀ Sol', cfg.sol], ['☽ Luna', cfg.luna], ['↑ Ascendente', cfg.asc],
+    ['☿ Mercurio', cfg.mercurio], ['♀ Venus', cfg.venus], ['♂ Marte', cfg.marte]
   ];
-  const pR=80;
-  planets.forEach(p=>{
-    const a=(p.deg/360)*Math.PI*2-Math.PI/2;
-    const px=CX+pR*Math.cos(a), py=CY+pR*Math.sin(a);
-    // dot
-    cx.beginPath();cx.arc(px,py,5,0,Math.PI*2);
-    cx.fillStyle=p.color+'cc';cx.fill();
-    cx.beginPath();cx.arc(px,py,5,0,Math.PI*2);
-    cx.strokeStyle=p.color;cx.lineWidth=1;cx.stroke();
-    // line from center
-    cx.beginPath();cx.moveTo(CX,CY);cx.lineTo(px,py);
-    cx.strokeStyle=p.color+'33';cx.lineWidth=.8;cx.stroke();
-    // label
-    const lx=CX+(pR+22)*Math.cos(a), ly=CY+(pR+22)*Math.sin(a);
-    cx.font='10px "DM Sans",system-ui';cx.fillStyle=p.color+'cc';
-    cx.textAlign='center';cx.textBaseline='middle';
-    cx.fillText(p.name,lx,ly);
+  c.innerHTML = '<div class="soul-card">' +
+    '<div class="soul-header">' +
+      '<div class="soul-zodiac-big" style="background:' + cfg.bgColor + ';border-color:' + cfg.borderColor + ';">' + cfg.simboloSol + '</div>' +
+      '<div>' +
+        '<div class="soul-name">' + nombre + '</div>' +
+        '<div class="soul-birth">' + fechaNac + ' · ' + ciudad + '</div>' +
+        '<div class="element-badges">' +
+          '<span class="ebadge" style="color:' + cfg.elementoColor + ';border-color:' + cfg.borderColor + ';background:' + cfg.bgColor + ';">' + cfg.elemento + '</span>' +
+          '<span class="ebadge" style="color:var(--gold);border-color:rgba(201,169,110,.3);background:rgba(201,169,110,.07);">' + cfg.modalidad + '</span>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<p class="tap-hint">Toca cada planeta para descubrir su influencia</p>' +
+    '<div class="astro-grid">' +
+    planetas.map(([lbl, p]) =>
+      '<div class="astro-cell" onclick="this.classList.toggle(\'revealed\')">' +
+        '<div class="astro-lbl">' + lbl + '</div>' +
+        '<div class="astro-symbol">' + p.simbolo + '</div>' +
+        '<div class="astro-val">' + p.signo + '</div>' +
+        '<div class="astro-deg">' + p.grado + '</div>' +
+        '<div class="astro-reveal">' + p.texto + '</div>' +
+      '</div>'
+    ).join('') +
+    '</div></div>';
+}
+buildSoulCard('s-p1', CONFIG.astro1, CONFIG.nombre1, CONFIG.nacimiento1.fecha, CONFIG.nacimiento1.ciudad);
+buildSoulCard('s-p2', CONFIG.astro2, CONFIG.nombre2, CONFIG.nacimiento2.fecha, CONFIG.nacimiento2.ciudad);
+
+// Compatibilidad
+(function(){
+  const c = CONFIG.compat;
+  document.getElementById('s-compat').innerHTML =
+    '<div class="soul-card">' +
+    '<div style="text-align:center;margin-bottom:28px;">' +
+      '<div style="font-size:42px;margin-bottom:10px;">' + c.simbolos + '</div>' +
+      '<div style="font-family:var(--serif);font-size:24px;font-weight:300;">' + c.titulo + '</div>' +
+      '<div style="font-size:12px;color:var(--muted);margin-top:4px;">' + c.subtitulo + '</div>' +
+    '</div>' +
+    '<div class="compat-bar-wrap">' +
+    c.barras.map(b =>
+      '<div class="compat-label">' + b.label + '</div>' +
+      '<div class="compat-bar"><div class="compat-fill" style="width:0%;background:linear-gradient(to right,' + b.colores[0] + ',' + b.colores[1] + ');" data-w="' + b.pct + '%"></div></div>'
+    ).join('') +
+    '</div>' +
+    '<div style="margin-top:28px;padding-top:22px;border-top:1px solid var(--border);">' +
+      '<div class="compat-note">' + c.descripcion1 + '</div>' +
+      '<div class="compat-note" style="margin-top:14px;">' + c.descripcion2 + '</div>' +
+    '</div>' +
+    '<div style="margin-top:24px;padding:16px 18px;background:rgba(201,169,110,.06);border:1px solid rgba(201,169,110,.15);border-radius:10px;text-align:center;">' +
+      '<div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:6px;">Aspecto clave</div>' +
+      '<div style="font-family:var(--serif);font-size:16px;font-weight:300;line-height:1.5;">' + c.aspectoClave + '</div>' +
+    '</div></div>';
+})();
+
+// Universo
+(function(){
+  const co = CONFIG.cosmos;
+  document.getElementById('cosmosIntro').innerHTML =
+    co.fecha + ' · ' + co.hora + ' · ' + co.ciudad + '<br>Mientras tú y yo tomábamos café, esto pasaba en el cosmos.';
+  document.getElementById('constTitle').textContent = 'Mapa estelar del ' + co.fecha.replace(' de ', ' · ').replace(' de ', ' · ');
+  document.getElementById('constSub').textContent = 'Vista desde ' + co.ciudad + ' · 22:00 local';
+  document.getElementById('zrSub').textContent = 'Posiciones planetarias · ' + co.fecha;
+  const grid = document.getElementById('uGrid');
+  co.celdas.forEach(cel => {
+    grid.innerHTML +=
+      '<div class="u-cell" onclick="this.classList.toggle(\'flipped\')">' +
+        '<div class="u-front">' +
+          '<div class="u-icon">' + cel.icono + '</div>' +
+          '<div class="u-lbl">' + cel.lbl + '</div>' +
+          '<div class="u-val">' + cel.val + '</div>' +
+          '<div class="u-sub">' + cel.sub + '</div>' +
+        '</div>' +
+        '<div class="u-back"><div class="u-back-text">' + cel.back + '</div></div>' +
+      '</div>';
   });
+})();
 
-  // center
-  cx.beginPath();cx.arc(CX,CY,3,0,Math.PI*2);
-  cx.fillStyle='rgba(201,169,110,.6)';cx.fill();
+// Timeline
+(function(){
+  const tl = document.getElementById('timeline');
+  CONFIG.hitos.forEach(h => {
+    tl.innerHTML +=
+      '<div class="t-item">' +
+        '<div class="t-dot" style="background:' + h.color + ';box-shadow:0 0 10px ' + h.color + '66;"></div>' +
+        '<div class="t-date">' + h.fecha + '</div>' +
+        '<div class="t-ttl">' + h.titulo + '</div>' +
+        '<div class="t-body">' + h.texto + '</div>' +
+      '</div>';
+  });
+})();
 
-  // caption
-  cx.font='10px "DM Sans",system-ui';cx.fillStyle='rgba(232,228,240,.3)';
-  cx.textAlign='center';cx.textBaseline='middle';
-  cx.fillText('14 · 02 · 2025',CX,CY+22);
+/* ── CONSTELACIÓN CANVAS ── */
+(function(){
+  const cv = document.getElementById('constCanvas');
+  if (!cv) return;
+  const cx = cv.getContext('2d'), W = 340, H = 340;
+  const bg = cx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W/2);
+  bg.addColorStop(0, '#1a1233'); bg.addColorStop(1, '#080614');
+  cx.fillStyle = bg; cx.fillRect(0, 0, W, H);
+  const mw = cx.createLinearGradient(0, H*.3, W, H*.7);
+  mw.addColorStop(0, 'transparent'); mw.addColorStop(.5, 'rgba(255,255,255,.025)'); mw.addColorStop(1, 'transparent');
+  cx.fillStyle = mw; cx.fillRect(0, 0, W, H);
+  const pts = CONFIG.cosmos.constPuntos;
+  cx.beginPath(); cx.moveTo(pts[0][0], pts[0][1]);
+  pts.slice(1).forEach(p => cx.lineTo(p[0], p[1]));
+  cx.strokeStyle = 'rgba(201,169,110,.35)'; cx.lineWidth = 1.2; cx.stroke();
+  pts.forEach(([x, y]) => {
+    const r = cx.createRadialGradient(x, y, 0, x, y, 4);
+    r.addColorStop(0, 'rgba(255,240,220,1)'); r.addColorStop(1, 'transparent');
+    cx.fillStyle = r; cx.fillRect(x-4, y-4, 8, 8);
+  });
+  for (let i = 0; i < 210; i++) {
+    const x = Math.random()*W, y = Math.random()*H, r = Math.random()*1+.15;
+    const g = cx.createRadialGradient(x, y, 0, x, y, r*2.5);
+    g.addColorStop(0, 'rgba(232,228,240,' + (Math.random()*.9+.1) + ')'); g.addColorStop(1, 'transparent');
+    cx.fillStyle = g; cx.fillRect(x-r*2.5, y-r*2.5, r*5, r*5);
+  }
+  cx.font = '500 10px "DM Sans",system-ui'; cx.fillStyle = 'rgba(201,169,110,.55)';
+  cx.textAlign = 'center';
+  cx.fillText(CONFIG.cosmos.constLabel, W/2, H-16);
+})();
+
+/* ── RUEDA ZODIACAL ── */
+(function(){
+  const cv = document.getElementById('zodiacRing');
+  if (!cv) return;
+  const cx = cv.getContext('2d'), W = 320, H = 320, CX = W/2, CY = H/2;
+  const bg = cx.createRadialGradient(CX, CY, 0, CX, CY, W/2);
+  bg.addColorStop(0, '#16102a'); bg.addColorStop(1, '#080614');
+  cx.fillStyle = bg; cx.fillRect(0, 0, W, H);
+  const signs = ['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];
+  const R = 130, rt = 142, pR = 80;
+  for (let i = 0; i < 12; i++) {
+    const a0 = (i/12)*Math.PI*2-Math.PI/2, a1 = ((i+1)/12)*Math.PI*2-Math.PI/2;
+    cx.beginPath(); cx.moveTo(CX, CY); cx.arc(CX, CY, R, a0, a1); cx.closePath();
+    cx.fillStyle = i%2===0 ? 'rgba(255,255,255,.025)' : 'rgba(255,255,255,.012)'; cx.fill();
+    cx.strokeStyle = 'rgba(255,255,255,.06)'; cx.lineWidth = .8; cx.stroke();
+    const am = (i+.5)/12*Math.PI*2-Math.PI/2;
+    cx.font = '13px serif'; cx.fillStyle = 'rgba(201,169,110,.65)';
+    cx.textAlign = 'center'; cx.textBaseline = 'middle';
+    cx.fillText(signs[i], CX+rt*Math.cos(am), CY+rt*Math.sin(am));
+  }
+  cx.beginPath(); cx.arc(CX, CY, 100, 0, Math.PI*2);
+  cx.strokeStyle = 'rgba(255,255,255,.08)'; cx.lineWidth = 1; cx.stroke();
+  CONFIG.cosmos.planetas.forEach(p => {
+    const a = (p.grado/360)*Math.PI*2-Math.PI/2;
+    const px = CX+pR*Math.cos(a), py = CY+pR*Math.sin(a);
+    cx.beginPath(); cx.arc(px, py, 5, 0, Math.PI*2);
+    cx.fillStyle = p.color+'cc'; cx.fill();
+    cx.strokeStyle = p.color; cx.lineWidth = 1; cx.stroke();
+    cx.beginPath(); cx.moveTo(CX, CY); cx.lineTo(px, py);
+    cx.strokeStyle = p.color+'33'; cx.lineWidth = .8; cx.stroke();
+    cx.font = '10px "DM Sans",system-ui'; cx.fillStyle = p.color+'cc';
+    cx.textAlign = 'center'; cx.textBaseline = 'middle';
+    cx.fillText(p.nombre, CX+(pR+22)*Math.cos(a), CY+(pR+22)*Math.sin(a));
+  });
+  cx.beginPath(); cx.arc(CX, CY, 3, 0, Math.PI*2);
+  cx.fillStyle = 'rgba(201,169,110,.6)'; cx.fill();
+  cx.font = '10px "DM Sans",system-ui'; cx.fillStyle = 'rgba(232,228,240,.3)';
+  cx.textAlign = 'center'; cx.textBaseline = 'middle';
+  cx.fillText('14 · 02 · 2025', CX, CY+22);
 })();
 
 /* ── MAIN TABS ── */
-document.querySelectorAll('.tab-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById(btn.dataset.tab).classList.add('active');
-    // animate compat bars when switching to almas/compat
-    if(btn.dataset.tab==='t-almas') animCompatBars();
+    if (btn.dataset.tab === 't-almas') animCompatBars();
   });
 });
 
 /* ── SOUL TABS ── */
-document.querySelectorAll('.soul-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.soul-btn').forEach(b=>b.classList.remove('active'));
-    document.querySelectorAll('.soul-panel').forEach(p=>p.classList.remove('active'));
+document.querySelectorAll('.soul-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.soul-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.soul-panel').forEach(p => p.classList.remove('active'));
     btn.classList.add('active');
     document.getElementById(btn.dataset.soul).classList.add('active');
-    if(btn.dataset.soul==='s-compat') animCompatBars();
+    if (btn.dataset.soul === 's-compat') animCompatBars();
   });
 });
 
-function animCompatBars(){
-  setTimeout(()=>{
-    document.querySelectorAll('.compat-fill').forEach(el=>{
-      el.style.width=el.dataset.w;
-    });
-  },80);
+function animCompatBars() {
+  setTimeout(() => {
+    document.querySelectorAll('.compat-fill').forEach(el => { el.style.width = el.dataset.w; });
+  }, 80);
 }
 
-/* ── PHOTOS ── */
+/* ── STARFIELD ── */
 (function(){
-  const grid=document.getElementById('photoGrid');
-  const photos=[
-    {tall:true,cap:'La Candelaria · Feb 2025',pal:['#2d1b3d','#8b5a7a','#e8c4a0']},
-    {tall:false,cap:'Villa de Leyva · May 2025',pal:['#1a2f4a','#4a7fa5','#c8dce8']},
-    {tall:false,cap:'Nuestro lugar',pal:['#1f1a0e','#6b4c1a','#c9935a']},
-    {tall:false,cap:'Un domingo',pal:['#0d1f2d','#2d5a7a','#7ab8d4']},
-    {tall:false,cap:'Sin filtro',pal:['#2a1a2e','#7a4a8a','#c8a0d8']},
-  ];
-  photos.forEach(p=>{
-    const f=document.createElement('div');f.className='pf'+(p.tall?' tall':'');
-    const cv=document.createElement('canvas');cv.width=400;cv.height=p.tall?560:260;
-    cv.style.cssText='display:block;width:100%;height:100%;';
-    const cx=cv.getContext('2d');
-    const g=cx.createLinearGradient(0,0,cv.width,cv.height);
-    p.pal.forEach((c,i)=>g.addColorStop(i/(p.pal.length-1),c));
-    cx.fillStyle=g;cx.fillRect(0,0,cv.width,cv.height);
-    for(let i=0;i<2800;i++){cx.fillStyle=`rgba(255,255,255,${Math.random()*.04})`;cx.fillRect(Math.random()*cv.width,Math.random()*cv.height,1,1);}
-    for(let k=0;k<3;k++){
-      const ox=cv.width*(.2+Math.random()*.6),oy=cv.height*(.2+Math.random()*.6),r=80+Math.random()*110;
-      const og=cx.createRadialGradient(ox,oy,0,ox,oy,r);
-      og.addColorStop(0,`rgba(255,255,255,${.05+Math.random()*.07})`);og.addColorStop(1,'transparent');
-      cx.fillStyle=og;cx.fillRect(0,0,cv.width,cv.height);
-    }
-    f.appendChild(cv);
-    const cap=document.createElement('div');cap.className='pf-cap';cap.textContent=p.cap;
-    f.appendChild(cap);grid.appendChild(f);
-  });
+  const c = document.getElementById('starfield'), ctx = c.getContext('2d');
+  let stars = [];
+  function resize() { c.width = innerWidth; c.height = innerHeight; }
+  function init() {
+    stars = [];
+    const n = Math.floor(c.width * c.height / 3600);
+    for (let i = 0; i < n; i++) stars.push({ x:Math.random()*c.width, y:Math.random()*c.height, r:Math.random()*1.1+.2, a:Math.random(), da:(Math.random()-.5)*.004, sp:Math.random()*.14+.03 });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    const dark = document.documentElement.dataset.theme==='light' ? false : document.documentElement.dataset.theme==='dark' ? true : matchMedia('(prefers-color-scheme:dark)').matches;
+    if (!dark) { requestAnimationFrame(draw); return; }
+    stars.forEach(s => {
+      s.a += s.da; if (s.a<0||s.a>1) s.da *= -1;
+      s.y -= s.sp; if (s.y < -2) s.y = c.height+2;
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(232,228,240,' + (s.a*.75) + ')'; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  resize(); init(); draw();
+  addEventListener('resize', () => { resize(); init(); });
 })();
 
-/* ── COUNTERS ── */
-const START=new Date('2025-02-14T00:00:00');
-const OPEN=new Date('2026-02-14T00:00:00');
-function pad(n){return String(n).padStart(2,'0');}
+/* ── CONTADORES ── */
+const START = new Date(CONFIG.fechaInicio);
+const OPEN  = new Date(CONFIG.fechaSobre);
+function pad(n) { return String(n).padStart(2, '0'); }
 
-function updateCounters(){
-  const now=Date.now();
-  const elapsed=Math.max(0,now-START);
-  const s=Math.floor(elapsed/1e3),m=Math.floor(s/60),h=Math.floor(m/60),d=Math.floor(h/24);
-  const bd=document.getElementById('bigDays');if(bd)bd.textContent=d.toLocaleString('es-CO');
-  const cH=document.getElementById('cH');if(cH)cH.textContent=pad(h%24);
-  const cM=document.getElementById('cM');if(cM)cM.textContent=pad(m%60);
-  const cS=document.getElementById('cS');if(cS)cS.textContent=pad(s%60);
-  const sr=document.getElementById('statRow');
-  if(sr&&!sr.dataset.built){
-    sr.dataset.built='1';
+function updateCounters() {
+  const now = Date.now();
+  const elapsed = Math.max(0, now - START);
+  const s = Math.floor(elapsed/1e3), m = Math.floor(s/60), h = Math.floor(m/60), d = Math.floor(h/24);
+  const bd = document.getElementById('bigDays'); if (bd) bd.textContent = d.toLocaleString('es-CO');
+  const cH = document.getElementById('cH'); if (cH) cH.textContent = pad(h%24);
+  const cM = document.getElementById('cM'); if (cM) cM.textContent = pad(m%60);
+  const cS = document.getElementById('cS'); if (cS) cS.textContent = pad(s%60);
+  const sr = document.getElementById('statRow');
+  if (sr && !sr.dataset.built) {
+    sr.dataset.built = '1';
     [
-      [Math.floor(h*70*2/1e6).toLocaleString('es-CO')+'M+','Latidos del corazón compartidos'],
-      [d.toLocaleString('es-CO'),'Amaneceres desde que nos conocimos'],
-      [Math.floor(elapsed/(1e3*60*60*24*365.25)*365).toLocaleString('es-CO'),'Días que ha girado la Tierra'],
-      [Math.floor(d*0.7).toLocaleString('es-CO')+'+','Mensajes de buenos días'],
-    ].forEach(([n,t])=>{
-      const b=document.createElement('div');b.className='stat-box';
-      b.innerHTML=`<div class="stat-n">${n}</div><div class="stat-desc">${t}</div>`;
+      [Math.floor(h*70*2/1e6).toLocaleString('es-CO')+'M+', 'Latidos del corazón compartidos'],
+      [d.toLocaleString('es-CO'), 'Amaneceres desde que nos conocimos'],
+      [Math.floor(elapsed/(1e3*60*60*24*365.25)*365).toLocaleString('es-CO'), 'Días que ha girado la Tierra'],
+      [Math.floor(d*.7).toLocaleString('es-CO')+'+', 'Mensajes de buenos días'],
+    ].forEach(([n, t]) => {
+      const b = document.createElement('div'); b.className = 'stat-box';
+      b.innerHTML = '<div class="stat-n">' + n + '</div><div class="stat-desc">' + t + '</div>';
       sr.appendChild(b);
     });
   }
-  const toOpen=Math.max(0,OPEN-now);
-  const ss=Math.floor(toOpen/1e3),sm=Math.floor(ss/60),sh=Math.floor(sm/60),sdv=Math.floor(sh/24);
-  const sDays=document.getElementById('sDays');if(sDays)sDays.textContent=sdv.toLocaleString('es-CO');
-  const sH=document.getElementById('sHours');if(sH)sH.textContent=pad(sh%24);
-  const sM=document.getElementById('sMins');if(sM)sM.textContent=pad(sm%60);
-  const sS=document.getElementById('sSecs');if(sS)sS.textContent=pad(ss%60);
-  if(toOpen<=0){
-    document.querySelectorAll('#sDays,#sHours,#sMins,#sSecs').forEach(el=>el.textContent='00');
-    const note=document.querySelector('.sealed-note');
-    if(note)note.textContent='El momento ha llegado. Este sobre es tuyo.';
+  const toOpen = Math.max(0, OPEN - now);
+  const ss = Math.floor(toOpen/1e3), sm = Math.floor(ss/60), sh = Math.floor(sm/60), sdv = Math.floor(sh/24);
+  const sDays  = document.getElementById('sDays');  if (sDays)  sDays.textContent  = sdv.toLocaleString('es-CO');
+  const sHours = document.getElementById('sHours'); if (sHours) sHours.textContent = pad(sh%24);
+  const sMins  = document.getElementById('sMins');  if (sMins)  sMins.textContent  = pad(sm%60);
+  const sSecs  = document.getElementById('sSecs');  if (sSecs)  sSecs.textContent  = pad(ss%60);
+  if (toOpen <= 0) {
+    document.querySelectorAll('#sDays,#sHours,#sMins,#sSecs').forEach(el => el.textContent='00');
+    const note = document.querySelector('.sealed-note');
+    if (note) note.textContent = 'El momento ha llegado. Este sobre es tuyo.';
   }
 }
-updateCounters();setInterval(updateCounters,1000);
+updateCounters();
+setInterval(updateCounters, 1000);
 </script>
-
-</body></html>
+</body>
+</html>
